@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.demo.i18n.model.Coffee;
 import com.demo.i18n.repository.CoffeeRepository;
-import com.google.gson.JsonElement;
 
 @Service
 public class CoffeeService {
@@ -22,7 +21,7 @@ public class CoffeeService {
 	}
 
 	public Coffee addCoffee(Coffee coffee) {
-		return coffeeRepository.saveAndFlush(coffee);
+		return coffeeRepository.save(coffee);
 	}
 
 	public boolean putCoffee(Coffee coffee) {
