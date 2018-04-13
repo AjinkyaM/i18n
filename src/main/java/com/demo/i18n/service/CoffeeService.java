@@ -1,5 +1,7 @@
 package com.demo.i18n.service;
 
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +13,14 @@ import com.demo.i18n.repository.CoffeeRepository;
 @Service
 public class CoffeeService {
 
-	private static final Logger logger = LoggerFactory.getLogger(CoffeeService.class);
-
 	@Autowired
 	CoffeeRepository coffeeRepository;
 
 	public Coffee getCoffee(Long id) {
-		return coffeeRepository.findOne(id);
+		
+		Optional<Coffee> coffeeOption = coffeeRepository.findById(id); 
+		
+		return coffeeOption.isPresent() ? coffeeOption.get() : null; 
 	}
 
 	public Coffee addCoffee(Coffee coffee) {
@@ -25,7 +28,9 @@ public class CoffeeService {
 	}
 
 	public boolean putCoffee(Coffee coffee) {
-		Coffee coffeeInDb = coffeeRepository.findOne(coffee.getId());
+		
+		Coffee coffeeInDb = this.getCoffee(coffee.getId());
+		
 		if (coffeeInDb != null) {
 
 			coffeeInDb.setColour(coffee.getColour());
@@ -42,7 +47,9 @@ public class CoffeeService {
 	}
 
 	public boolean deleteCoffee(Long id) {
-		Coffee coffeeInDb = coffeeRepository.findOne(id);
+		
+		Coffee coffeeInDb = this.getCoffee(id);
+		
 		if (coffeeInDb != null) {
 
 			coffeeRepository.delete(coffeeInDb);

@@ -7,14 +7,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.demo.i18n.model.Coffee;
 import com.demo.i18n.service.CoffeeService;
 
 @SpringBootApplication
 public class I18nApplication implements CommandLineRunner {
 
-	private static final Logger logger = LoggerFactory.getLogger(I18nApplication.class);
-	
 	@Autowired
 	CoffeeService coffeeService;
 
